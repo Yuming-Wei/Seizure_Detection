@@ -51,7 +51,7 @@ void setup() {
   Wire.write(0);     // set to zero (wakes up the MPU-6050)
   Wire.endTransmission(true);
   
-  Serial.begin(57600);
+  Serial.begin(9600);
   radio.begin();
   radio.openWritingPipe(pipe);
   Serial.println("IMU Setup Ready and radio ready to send");
