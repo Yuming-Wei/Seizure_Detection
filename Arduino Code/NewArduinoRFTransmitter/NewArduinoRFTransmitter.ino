@@ -13,7 +13,7 @@
 #define MPU6050_ACCEL_XOUT_H       0x3B   // R    
 #define MPU6050_I2C_Addr               0x68   // I2C address of the MPU-6050
 #define MPU6050_PWR_MGMT_1             0x6B   // PWR_MGMT_1 register
-#define MPU6050_ACC_Sen            16384  // Sensitivity for +-2g scale
+#define MPU6050_ACC_Sen            8192  // Sensitivity for +-4g scale
 #define MPU6050_GYRO_Sen           131  // Sensitivity for +-250 degree/s scale
 //****************************************************
 
@@ -39,7 +39,13 @@ void setup() {
   Wire.beginTransmission(MPU6050_I2C_Addr);
   Wire.write(MPU6050_PWR_MGMT_1);             // PWR_MGMT_1 register
   Wire.write(0);                              // set to zero (wakes up the MPU-6050)
+  Wire.endTransmission(false);
+
+  Wire.beginTransmission(MPU6050_I2C_Addr);
+  Wire.write(MPU6050_ACCEL_CONFIG);  // Accelerometer Configuration register
+  Wire.write(0x08);       // set scale of ACC as +/-4g
   Wire.endTransmission(true);
+  
   Serial.begin(SerialRate);
   Serial.println("Serial Begin!");
 
