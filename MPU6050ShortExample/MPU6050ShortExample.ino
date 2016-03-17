@@ -1,7 +1,4 @@
-// MPU-6050 Short Example Sketch
-// By Arduino User JohnChi
-// August 17, 2014
-// Public Domain
+// MPU-6050 Sketch
 #include<Wire.h>
 
 #define MPU6050_CONFIG             0x1A   // R/W
