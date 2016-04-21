@@ -62,7 +62,6 @@ void setup(void) {
 
 void loop(void){
 
-
   if(role == TX){
     
     delay(2000);
