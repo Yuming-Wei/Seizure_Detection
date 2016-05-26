@@ -1,0 +1,5 @@
+#!/bin/bash
+cd /home/pi/Desktop/Jefferson_Project/Drexel_Senior_Design/Raspberry_Pi
+make
+sudo /home/pi/Desktop/Jefferson_Project/Drexel_Senior_Design/Raspberry_Pi/reciever
+exec /bin/bash
