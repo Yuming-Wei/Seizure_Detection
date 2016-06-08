@@ -1,2 +1,3 @@
-# Drexel_Senior_Design
-Drexel Senior Design with Jefferson Epilepsy Detection Project
+# Seizure Detection
+Jefferson Epilepsy Detection Project 
+Collaborated with Drexel Senior Design group
