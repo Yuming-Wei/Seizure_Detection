@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /**
  * Jefferson Seizure Detection Project
  * Data Collection Device, Arduino + MPU6050 + RFn24L01+
@@ -6,8 +5,6 @@
  * 06/10/2016
  */
 
-=======
->>>>>>> 47003bb3f46847facbc539dabe0048867f9784da
 // For the Accelerometer
 #include<Wire.h>
 #include <Time.h>
@@ -17,6 +14,7 @@
 #include <SPI.h>
 #include "RF24.h"
 #include "printf.h"
+
 /*************  USER Configuration *****************************/
 // Hardware configuration
 RF24 radio(7,8); // Set up nRF24L01 radio on SPI bus plus pins 7 & 8\
@@ -28,22 +26,19 @@ byte data[32];                           //Data buffer for testing data transfer
 
 unsigned long counter, rxTimer;          //Counter and timer for keeping track transfer info
 unsigned long startTime, stopTime;  
-<<<<<<< HEAD
 bool TX = 1, RX = 0, role=0;
-=======
 bool TX=1,RX=0,role=0;
->>>>>>> 47003bb3f46847facbc539dabe0048867f9784da
 
 #define MPU6050_GYRO_CONFIG        0x1B   // R/W
 #define MPU6050_ACCEL_CONFIG       0x1C   // R/W
 #define MPU6050_ACCEL_XOUT_H       0x3B   // R  
-<<<<<<< HEAD
+
 #define MPU6050_ACCEL_XOUT_L       0x3C   // R    
 
 #define MPU6050_I2C_Addr               0x68   // I2C address of the MPU-6050
 
 #define MPU6050_PWR_MGMT_1             0x6B
-=======
+
 #define MPU6050_ACCEL_XOUT_L       0x3C   // R  
 #define MPU6050_ACCEL_YOUT_H       0x3D   // R  
 #define MPU6050_ACCEL_YOUT_L       0x3E   // R  
@@ -60,16 +55,12 @@ bool TX=1,RX=0,role=0;
 
 #define MPU6050_I2C_Addr               0x68   // I2C address of the MPU-6050
 
->>>>>>> 47003bb3f46847facbc539dabe0048867f9784da
 #define MPU6050_ACC_Sen                8192  // Sensitivity for +-4g scale
 #define MPU6050_GYRO_Sen               131  // Sensitivity for +-250 degree/s scale
 
 const int MPU_addr = 0x68; // I2C address of the MPU-6050
 int16_t AcX, AcY, AcZ, Tmp, GyX, GyY, GyZ;
-<<<<<<< HEAD
 
-=======
->>>>>>> 47003bb3f46847facbc539dabe0048867f9784da
 void setup() {
   
   Serial.begin(57600);
@@ -86,7 +77,6 @@ void setup() {
   radio.startListening();                 // Start listening
   radio.printDetails();                   // Dump the configuration of the rf unit for debugging
   
-<<<<<<< HEAD
   printf("\n\rJefferson_Seizure_Detection_Project\n\r");
   printf("*PRESS 'T' to begin transmitting to the other node\n\r");
   
@@ -96,7 +86,6 @@ void setup() {
      data[i] = random(255);               //Load the buffer with random data
   }
   
-=======
   printf("\n\rJefferson_Project\n\r");
   printf("*** PRESS 'T' to begin transmitting to the other node\n\r");
   
@@ -105,20 +94,20 @@ void setup() {
   for(int i=0; i<32; i++){
      data[i] = random(255);               //Load the buffer with random data
   }
->>>>>>> 47003bb3f46847facbc539dabe0048867f9784da
+  
   radio.powerUp();                        //Power up the radio
 
   Serial.println("i2c setup");
   Wire.begin();
   //wake up the mpu5060
   Wire.beginTransmission(MPU_addr);
-<<<<<<< HEAD
+
   Wire.write(MPU6050_PWR_MGMT_1);     // PWR_MGMT_1 register
   Wire.write(0);                      // set to zero (wakes up the MPU-6050)
-=======
+
   Wire.write(0x6B);  // PWR_MGMT_1 register
   Wire.write(0);     // set to zero (wakes up the MPU-6050)
->>>>>>> 47003bb3f46847facbc539dabe0048867f9784da
+
   int sleep_result = Wire.endTransmission(true);
   Serial.print("i2c wake up: "); Serial.println(sleep_result);
 
@@ -130,7 +119,6 @@ void setup() {
   // print IMU Values
   Serial.print("  i2c acc config: "); Serial.println(accel_config_result);
   Serial.println("end i2c setup\n");
-<<<<<<< HEAD
   
   radio.openWritingPipe(pipes[1]);
   radio.openReadingPipe(1,pipes[0]);
@@ -138,36 +126,7 @@ void setup() {
   role = TX;                         // Become the primary transmitter (ping out)
 }
 
-time_t t0 = micros();
-=======
-  //Serial.print("Time (ms),");
-  //Serial.print("AcX,");
-  //Serial.print("AcY,");
-  //Serial.print("AcZ,");
-  //Serial.print("GyX,");
-  //Serial.print("GyY,");
-  //Serial.println("GyZ");
-
-  //printf("waiting for RPi first message...");
-  //int waitForMessage = 0;
-  //while(waitForMessage != 123){
-    //printf("waiting...\n");
-    //while(radio.available()){       
-      //radio.read(&data,32);
-      //waitForMessage = data[0];
-      //counter+=1;
-    //}
-    //if(millis() - rxTimer > 1000){
-      //rxTimer = millis();     
-      //float numBytes = (counter*32)/1000.0;
-      //Serial.print("Rate: ");
-      //Serial.print(numBytes);
-      //printf("KB/s \n Payload Count: %d \n\r", counter);
-      //printf("Data: %d \n\r", data[0]);
-      //counter = 0;
-    //}
-  //}
-  //printf("Recieved first message, begining transmission", counter);
+time_t t0 = millis();
   radio.openWritingPipe(pipes[1]);
   radio.openReadingPipe(1,pipes[0]);
   radio.stopListening();
@@ -175,7 +134,7 @@ time_t t0 = micros();
 }
 
 time_t t0 = millis();
->>>>>>> 47003bb3f46847facbc539dabe0048867f9784da
+
 void loop() {
   Wire.beginTransmission(MPU_addr);
   Wire.write(0x3B);  // starting with register 0x3B (ACCEL_XOUT_H)
@@ -184,18 +143,18 @@ void loop() {
   AcX = Wire.read() << 8 | Wire.read(); // 0x3B (ACCEL_XOUT_H) & 0x3C (ACCEL_XOUT_L)
   AcY = Wire.read() << 8 | Wire.read(); // 0x3D (ACCEL_YOUT_H) & 0x3E (ACCEL_YOUT_L)
   AcZ = Wire.read() << 8 | Wire.read(); // 0x3F (ACCEL_ZOUT_H) & 0x40 (ACCEL_ZOUT_L)
-  //Tmp = Wire.read() << 8 | Wire.read(); // 0x41 (TEMP_OUT_H) & 0x42 (TEMP_OUT_L)
+  Tmp = Wire.read() << 8 | Wire.read(); // 0x41 (TEMP_OUT_H) & 0x42 (TEMP_OUT_L)
   GyX = Wire.read() << 8 | Wire.read(); // 0x43 (GYRO_XOUT_H) & 0x44 (GYRO_XOUT_L)
   GyY = Wire.read() << 8 | Wire.read(); // 0x45 (GYRO_YOUT_H) & 0x46 (GYRO_YOUT_L)
   GyZ = Wire.read() << 8 | Wire.read(); // 0x47 (GYRO_ZOUT_H) & 0x48 (GYRO_ZOUT_L)
-<<<<<<< HEAD
-  time_t t = micros() - t0;
+  
+  time_t t = millis() - t0;
   
   if(role == TX){ 
     
     unsigned long cycles = 10000; //Change this to a higher or lower number.   
-    startTime = micros();
-    unsigned long pauseTime = micros();
+    startTime = millis();
+    unsigned long pauseTime = millis();
     
     data[0] = -100;  //Change the first byte of the payload for identification
     data[1] = (byte)(AcX >> 8);
@@ -222,21 +181,9 @@ void loop() {
       counter++;                      //Keep count of failed payloads
     }
       
-    stopTime = micros();  //This should be called to wait for completion and put the radio in standby mode after transmission, returns 0 if data still in FIFO (timed out), 1 if success
-=======
-  time_t t = millis() - t0;
-  //Serial.print(t);
-  //print acceleration data
-  //Serial.print(","); 
-  //Serial.print(AcX);
-  //Serial.print(","); Serial.print(AcY);
-  //Serial.print(","); Serial.print(AcZ);
-  //Serial.print(" | Tmp = "); Serial.print(Tmp/340.00+36.53);  //equation for temperature in degrees C from datasheet
-  //print gyro data
-  //Serial.print(","); Serial.print(GyX);
-  //Serial.print(","); Serial.print(GyY);
-  //Serial.print(","); Serial.println(GyZ);
-
+    stopTime = millis();  //This should be called to wait for completion and put the radio in standby mode after transmission, returns 0 if data still in FIFO (timed out), 1 if success
+    time_t t = millis() - t0;
+ 
   if(role == TX){ 
     //Serial.print("Transmitting...\n");
     //delay(2000);
@@ -271,7 +218,7 @@ void loop() {
       }
     //}
     stopTime = millis();  //This should be called to wait for completion and put the radio in standby mode after transmission, returns 0 if data still in FIFO (timed out), 1 if success
->>>>>>> 47003bb3f46847facbc539dabe0048867f9784da
+
   }
   
   if(role == RX){
@@ -279,13 +226,13 @@ void loop() {
       radio.read(&data,32);
       counter++;
     }
-<<<<<<< HEAD
-    if(micros() - rxTimer > 1000){
-      rxTimer = micros();     
-=======
+
     if(millis() - rxTimer > 1000){
       rxTimer = millis();     
->>>>>>> 47003bb3f46847facbc539dabe0048867f9784da
+
+    if(millis() - rxTimer > 1000){
+      rxTimer = millis();     
+
       float numBytes = (counter*32)/1000.0;
       Serial.print("Rate: ");
       Serial.print(numBytes);
@@ -313,8 +260,8 @@ void loop() {
       role = RX;                // Become the primary receiver (pong back)
     }
   } 
-<<<<<<< HEAD
+
 }
-=======
+
 }
->>>>>>> 47003bb3f46847facbc539dabe0048867f9784da
+
