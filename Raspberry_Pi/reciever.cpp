@@ -101,7 +101,7 @@ int main(int argc, char** argv){
 				//printf("test2\n");
 		      		radio.read(&recievedata,32);
 		      		counter++;
-			   	if(millis() - rxTimer > 1){
+			   	if(millis() - startTime > 5000 && millis() - startTime < 6000){
 				     	rxTimer = millis();
 					// time on arduino
 					printf("%d,", (recievedata[13] << 32 | recievedata[14] << 16 | recievedata[15] << 8 |  recievedata[16]));	     	
